@@ -4,50 +4,39 @@ angular.module('djroboto').service('YouTubeSearchService', ['$http', function($h
 	var self = this;
 
 	self.Query = function(ytQuery, callback) {
-	    //TODO figure out how to get more than 5 results
-	    var request = gapi.client.youtube.search.list({
-	        'q': ytQuery.query,
-	        'order': ytQuery.order,
-	        'type': ytQuery.type,
-	        'part': ytQuery.part
-	    });
+	    $http.get("https://gdata.youtube.com/feeds/api/videos"
+	    	+ "?alt=json"
+	    	+ "&q=" + ytQuery.query
+	    	+ "&orderby=" + ytQuery.order
+	    	+ "&max-results=" + ytQuery.quantity
+	    	+ "&category=" + ytQuery.category,
+	    	{'v' : 2}
+		)
+		.success(function(data, status, headers, config) {
 
-	    
-	    request.execute(function(response) {
-	    	var items;
-  		    if (ytQuery.takeFirstResult && response.items.length > 0) {
-  		    	items = [];
-  		    	items[0] = response.items[0];
-  		    }
-  		    else {
-  		    	items = response.items;
-  		    }
+			for (var entryIndex in data.feed.entry) {
+				var result = data.feed.entry[entryIndex];
+				var id = result.id.$t.match(/http:\/\/gdata.youtube.com\/feeds\/api\/videos\/(.*)/)[1];
+	            var video = new Video(
+	            	result.title.$t,
+	            	id,
+	            	result.media$group.media$thumbnail,
+	            	new Duration(
+	            		parseInt(result.media$group.yt$duration.seconds, 10)
+	            	)
+	            );
 
-	        for (var resultIndex in items) {
-	            var result = items[resultIndex];
+	  		    callback(video);
+				
+				if (ytQuery.takeFirstResult) {
+					break;
+				}
+			}
 
-		    	$http.get("https://www.googleapis.com/youtube/v3/videos", {
-		    		"id" : result.id.videoId,
-		    		"key" : "AIzaSyCiYSFVgRONf6z5vjx8dj-NsKxL_3B48dk",
-		    		"part" : "contentDetails",
-		    		"fields" : "items(contentDetails(duration))"
-		    	})
-				.success(function(data, status, headers, config) {
-				    var resultDuration = data.items[0].contentDetails.duration;
-
-		            var video = new Video(
-		            	escape(result.snippet.title),
-		            	result.id.videoId,
-		            	result.snippet.thumbnails.url,
-		            	new Duration(resultDuration));
-
-	      		    callback(video);
-				})
-				.error(function(data, status, headers, config) {
-					
-				});
-	        }
-	    });
+		})
+		.error(function(data, status, headers, config) {
+			
+		});
 	}
 
 	self.QueryAll = function(queries, callback) {

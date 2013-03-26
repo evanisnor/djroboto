@@ -5,3 +5,38 @@ var Genre = function(name, id) {
 	this.resultSize = 300;
 	this.allowExplicit = true;
 }
+
+var GenreList = [
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	},
+	{
+		name : 'Blues',
+		id : 2
+	}
+];

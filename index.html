@@ -25,12 +25,26 @@
 		<![endif]-->
 
 		<!-- Begin content -->
-		<!-- <iframe
-			width="640"
-			height="390"
-			src="http://www.youtube.com/embed/lAc8xRev5L8?autoplay=1&controls=0&enablejsapi=1"
-			frameborder="0">
-		</iframe> -->
+		<div ng-controller="Finder">
+			<input type="text" ng-model="query" ng-change="QueryYouTube()" />
+			<ol ng-show="results.length > 0">
+				<li ng-repeat="video in results">
+					<div>{{video.title}}</div>
+					<div>{{video.duration.asClock()}}</div>
+					<div ng-click="Select(video)">></div>
+				</li>
+			</ol>
+		</div>
+		<div ng-controller="Player">
+			<iframe id="playerFrame"
+				ng-show="currentVideo != null"
+				width="640"
+				height="390"
+				src="http://www.youtube.com/embed/{{currentVideo.id}}?&autoplay=1&controls=1&enablejsapi=1"
+				frameborder="0">
+			</iframe>
+		</div>
+
 		<!-- End content -->
 
 		<script src="js/vendor/angular.min.js"></script>
@@ -40,16 +54,17 @@
         <script src="//www.youtube.com/iframe_api"></script>
 
 		<script src="js/djroboto.js"></script>
+		<script src="js/model/events.djroboto.js"></script>
 		<script src="js/model/genre.djroboto.js"></script>
 		<script src="js/model/video.djroboto.js"></script>
 		<script src="js/model/youtubequery.djroboto.js"></script>
-		<script src="js/controller/finder.djroboto.js"></script>
-		<script src="js/controller/player.djroboto.js"></script>
 		<script src="js/service/ituneschart.djroboto.js"></script>
 		<script src="js/service/playlist.djroboto.js"></script>
 		<script src="js/service/youtubesearch.djroboto.js"></script>
+		<script src="js/controller/finder.djroboto.js"></script>
+		<script src="js/controller/player.djroboto.js"></script>
 
-        <script src="https://apis.google.com/js/client.js?onload=InitializeGapi"></script>
+        <!--<script src="https://apis.google.com/js/client.js?onload=InitializeGapi"></script>-->
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<!-- <script>

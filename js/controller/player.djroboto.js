@@ -1,5 +1,10 @@
 'use strict';
 
+var player;
+var onYouTubeIframeAPIReady = function() {
+	player = new YT.Player('playerFrame', {});
+}
+
 angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 	function($scope, PlaylistService) {
 
@@ -7,15 +12,6 @@ angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 		$scope.nextVideo = null;
 		$scope.playlistRunningTime = new Duration();
 		$scope.isPlaying = false;
-
-		$scope.Next = function() {
-			$scope.currentVideo = PlaylistService.GetNextVideo();
-			if ($scope.currentVideo != null) {
-				$scope.isPlaying = true;
-			}
-			$scope.playlistRunningTime = PlaylistService.GetTotalRunningTime();
-			$scope.nextVideo = PlaylistService.Peek();
-		}
 
 		$scope.GetTotalRunningTime = function() {
 			if ($scope.currentVideo != null) {
@@ -27,6 +23,7 @@ angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 		}
 
 		$scope.onPlayerStateChange = function(event) {
+			console.log("Player: Received Player State Event: " + event);
 		    if (event.data == YT.PlayerState.ENDED) {
 		      	$scope.isPlaying = false;
 		      	$scope.currentVideo = null;
@@ -54,5 +51,20 @@ angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 				$scope.nextVideo = PlaylistService.Peek();
 			}
 		}
+
+		$scope.Next = function() {
+			$scope.currentVideo = PlaylistService.GetNextVideo();
+			if ($scope.currentVideo != null) {
+				$scope.isPlaying = true;
+	            player.loadVideoById($scope.currentVideo.id);
+	            window.onPlayerStateChange = $scope.onPlayerStateChange;
+				player.addEventListener('onStateChange', window.onPlayerStateChange);
+				player.playVideo();
+			}
+			$scope.playlistRunningTime = PlaylistService.GetTotalRunningTime();
+			$scope.nextVideo = PlaylistService.Peek();
+		}
+
+		PlaylistService.RegisterEventCallback($scope.onPlaylistStateChange);
 	}
 ]);

@@ -2,9 +2,9 @@
 var YouTubeQuery = function(query, takeFirstResult) {
 	if (typeof(takeFirstResult) == 'undefined') takeFirstResult = false;
 
-	this.query = query + ' music';
+	this.query = query;
 	this.order = 'relevance';
-	this.type = 'video';
-	this.part = 'snippet';
+	this.category = 'Music';
+	this.quantity = 5;
 	this.takeFirstResult = takeFirstResult;
 }
