@@ -27,6 +27,7 @@ angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 		    if (event.data == YT.PlayerState.ENDED) {
 		      	$scope.isPlaying = false;
 		      	$scope.currentVideo = null;
+		      	$scope.$apply('currentVideo == null');
 		      	$scope.Next();
 		    }
 		}

@@ -27,7 +27,7 @@
 		<!-- Begin content -->
 		<div ng-controller="Finder">
 			<input type="text" ng-model="query" ng-change="QueryYouTube()" />
-			<ol ng-show="results.length > 0">
+			<ol ng-hide="results.length == 0">
 				<li ng-repeat="video in results">
 					<div>{{video.title}}</div>
 					<div>{{video.duration.asClock()}}</div>
@@ -37,7 +37,7 @@
 		</div>
 		<div ng-controller="Player">
 			<iframe id="playerFrame"
-				ng-show="currentVideo != null"
+				ng-show="currentVideo"
 				width="640"
 				height="390"
 				src="http://www.youtube.com/embed/{{currentVideo.id}}?&autoplay=1&controls=1&enablejsapi=1"
