@@ -21,6 +21,7 @@ angular.module('djroboto').controller('Finder', ['$scope', 'YouTubeSearchService
 		$scope.Select = function(video) {
 			PlaylistService.Add(video);
 			$scope.results.length = 0;
+			$scope.query = '';
 		}
 
 		$scope.LoadGenre = function() {
