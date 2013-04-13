@@ -64,7 +64,7 @@ angular.module('djroboto').controller('Player', ['$scope', 'PlaylistService',
 			}
 			$scope.playlistRunningTime = PlaylistService.GetTotalRunningTime();
 			$scope.nextVideo = PlaylistService.Peek();
-			$scope.$apply('currentVideo != null');
+			//$scope.$apply('currentVideo != null');
 		}
 
 		PlaylistService.RegisterEventCallback($scope.onPlaylistStateChange);

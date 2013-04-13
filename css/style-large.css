@@ -20,9 +20,9 @@ div.banner {
 	padding: 0.5cm;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;
-	
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;
+
 	text-align: center;
 }
 
@@ -75,16 +75,48 @@ div#player {
 	margin-left: 6.85cm;
 	margin-right: 0.5cm;
 	width: 12.8cm;
-	height: 7.8cm;
-}
-
-iframe#playerFrame {
-	width: 100%;
-	height: 100%;
+	height: 8.9cm;
 }
 
 div#noVideo {
-	background-color: #000000;
 	width: 100%;
 	height: 100%;
+}
+
+div#title {
+	height: 0.6cm;
+
+	font-family: sans-serif;
+	font-size: 1em;
+	font-weight: bold;
+	text-align: right;
+	color: #FFFFFF;
+}
+
+iframe#playerFrame {
+	width: 12.8cm;
+	height: 7.8cm;
+}
+
+div#playerFooter {
+	width: 100%;
+	height: 0.5cm;
+	margin: 0 auto;
+
+	font-family: sans-serif;
+	font-size: 0.8em;
+	text-align: left;
+	color: #FFFFFF;
+}
+
+div#nextVideo {
+	float: left;
+	padding: 0;
+	list-style-type: none;
+}
+
+div#skip {
+	margin-left: 11.6cm;
+	cursor: hand;
+	cursor: pointer;
 }
