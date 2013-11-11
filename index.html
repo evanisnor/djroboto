@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -76,4 +77,105 @@ $ git checkout gh-pages
     
 
   </body>
+=======
+<!doctype html>
+<html ng-app="djroboto">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>djRoboto</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+		<!--<link rel="stylesheet" href="css/normalize.css">-->
+		<link rel="stylesheet"
+			href="css/style-large.css"
+			media="screen and (min-width: 800px)">
+
+		<link rel="stylesheet"
+			href="css/style-small.css"
+			media="screen and (max-width: 799px)">
+	</head>
+	<header>
+		<h1>djRoboto</h1>
+	</header>
+	<body>
+		<!--[if lt IE 7]>
+			<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+		<![endif]-->
+
+		<!-- Begin content -->
+
+		<div class="banner">
+
+			<div id="content">
+				<div id="finder" ng-controller="Finder">
+					<input id="query" type="text" ng-model="query" ng-change="QueryYouTube()" placeholder="Search for Music..." />
+					<ul id="results" ng-hide="results.length == 0">
+						<li class="result" ng-repeat="video in results" ng-click="Select(video)">
+							<div class="resultTitle">{{video.title}}</div>
+							<div class="resultDuration">{{video.duration.asClock()}}</div>
+						</li>
+					</ol>
+				</div>
+
+				<div id="player" ng-controller="Player">
+					<div id="noVideo" ng-show="!currentVideo"></div>
+					
+					<div id="title" ng-show="currentVideo">{{currentVideo.title}}</div>
+					<iframe id="playerFrame"
+						ng-show="currentVideo"
+						src="http://www.youtube.com/embed/{{currentVideo.id}}?&autoplay=1&controls=0&enablejsapi=1"
+						frameborder="0">
+					</iframe>
+
+					<div id="playerFooter" ng-show="currentVideo">
+						<div id="nextVideo" ng-show="nextVideo">Next: {{nextVideo.title}}</div>
+						<div id="skip" ng-click="Next()">SKIP &gt;</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<!-- End content -->
+
+		<script src="js/vendor/angular.min.js"></script>
+		<script src="js/vendor/sprintf-0.7-beta1.js"></script>
+		<script src="js/vendor/duration.js"></script>
+
+        <script src="//www.youtube.com/iframe_api"></script>
+
+		<script src="js/djroboto.js"></script>
+		<script src="js/model/events.djroboto.js"></script>
+		<script src="js/model/genre.djroboto.js"></script>
+		<script src="js/model/video.djroboto.js"></script>
+		<script src="js/model/youtubequery.djroboto.js"></script>
+		<script src="js/service/ituneschart.djroboto.js"></script>
+		<script src="js/service/playlist.djroboto.js"></script>
+		<script src="js/service/youtubesearch.djroboto.js"></script>
+		<script src="js/controller/finder.djroboto.js"></script>
+		<script src="js/controller/player.djroboto.js"></script>
+
+        <!--<script src="https://apis.google.com/js/client.js?onload=InitializeGapi"></script>-->
+
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<!-- <script>
+			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g,s)}(document,'script'));
+		</script>-->
+	</body>
+	<footer>
+
+	</footer>
+>>>>>>> origin/master
 </html>
